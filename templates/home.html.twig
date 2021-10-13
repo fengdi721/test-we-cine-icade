@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <nav class="navbar offset-1 col-10">
+        <div class="row col-12">
+            <div class="col-4 title">
+                <h1 class="center">A propos de We Movies</h1>
+            </div>
+            <div class="row search col-8">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="search"
+                           name="search" placeholder="Search a movie here ..." data-uri="{{ config.images.secure_base_url ~ 'w45' }}">
+                    <div id="autocomplete"></div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row offset-1 col-10 banner">
+        <div class="embed-responsive embed-responsive-16by9 video">
+            {% set video = firstMovieVideo|first|default('') %}
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.key }}" allowfullscreen></iframe>
+        </div>
+        <div class="resume">
+            <div class="image float-left"><img src="{{ config.images.secure_base_url ~ 'w185' ~ firstMovie.poster_path}}" class="img-fluid rounded" alt="{{ firstMovie.title }}" /></div>
+            <div class="desc">
+                <h3 class="title">{{ firstMovie.title }}</h3>
+                <p class="description">{{ firstMovie.overview }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="content offset-1 col-10 row">
+        <div class="col-3" id="filters">
+            <ul>
+                {% for genre in genres %}
+                    <li>
+                        <div class="custom-control form-control-lg custom-checkbox">
+                            <input class="form-check-input" type="radio" value="{{ genre.id }}" name="genre[]" id="genre-{{ genre.id }}" data-genre="{{ genre.id }}">
+                            <label class="form-check-label" for="genre-{{ genre.id }}">{{ genre.name }}</label>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="col-9">
+            <div class="spinner-border text-primary" role="status" id="loader">
+                <span class="sr-only">Loading...</span>
+            </div>
+            <div id="movie_list">
+                {% include 'movie/list.html.twig'%}
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer"></div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

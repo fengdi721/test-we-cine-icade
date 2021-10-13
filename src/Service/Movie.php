@@ -66,6 +66,23 @@ class Movie
         }
     }
 
+    public function searchMovie(string $query, int $page = 1): string
+    {
+        try {
+            $this->defaultOptions['query']['query'] = \urlencode($query);
+            $this->defaultOptions['query']['page'] = $page;
+
+            $response = $this->client->request( 'GET', "search/movie", $this->defaultOptions);
+            if ($response->getStatusCode() !== 200) {
+                throw new \Exception('Response code KO !');
+            }
+            return $response->getContent();
+        } catch (\Exception $e) {
+            $this->logger->alert(sprintf('getMovie error : %s', $e->getMessage()));
+            return \json_encode(array_merge($this->defaultResponse, ['msg' => $e->getMessage()]));
+        }
+    }
+
     public function getPopularMovies(): array
     {
         try {
@@ -94,4 +111,42 @@ class Movie
             return array_merge($this->defaultResponse, ['msg' => $e->getMessage()]);
         }
     }
+
+    public function discoverMovie(array $filters): array
+    {
+        try {
+            if (empty($filters)) {
+                return [];
+            }
+
+            foreach($filters as $param => $value) {
+                $this->defaultOptions['query'][$param] = $value;
+            }
+            $response = $this->client->request( 'GET', "discover/movie", $this->defaultOptions);
+
+            if ($response->getStatusCode() !== 200) {
+                throw new \Exception('Response code KO" !');
+            }
+
+            return ($response->toArray())['results'];
+        } catch (\Exception $e) {
+            $this->logger->alert(sprintf('discoverMovie error : %s', $e->getMessage()));
+            return array_merge($this->defaultResponse, ['msg' => $e->getMessage()]);
+        }
+    }
+
+    public function getVideo(int $idMovie):array
+    {
+        try {
+            $response = $this->client->request( 'GET', "movie/{$idMovie}/videos", $this->defaultOptions);
+            if ($response->getStatusCode() !== 200) {
+                throw new \Exception('Response code KO !');
+            }
+            return ($response->toArray())['results'];
+        } catch (\Exception $e) {
+            $this->logger->alert(sprintf('getVideo error : %s', $e->getMessage()));
+            return array_merge($this->defaultResponse, ['msg' => $e->getMessage()]);
+        }
+    }
+
 }

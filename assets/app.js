@@ -25,17 +25,50 @@ $('#detailModal').on('show.bs.modal', function (event) {
     });
 })
 
-$("#search").autocomplete({hint: false}, [{
+// Autocomplete search
+$("#search").autocomplete({hint: false, minLength: 3}, [{
     source: function(query, cb) {
-        // $.ajax({
-        //     url: autocompleteUrl+'?query='+query
-        // }).then(function(data) {
-        //     if (dataKey) {
-        //         data = data[dataKey];
-        //     }
-        //     cb(data);
-        // });
-        console.log(query);
+        $.ajax({
+            url: '/search' +'?query=' + query
+        }).then((data) => {
+            if(data.results !== undefined) {
+                data = data.results;
+            } else {
+                data = [];
+            }
+            cb(data);
+        });
+
     },
-    debounce: 500
+    displayKey: "title",
+    debounce: 500,
+    templates: {
+        suggestion: function(suggestion) {
+            const baseUri = $("#search").data('uri');
+            return `<div class="suggestion"><img src="${baseUri}${suggestion.poster_path}" alt="${suggestion.id}"><span class="title">${suggestion.title}</span></div>`;
+        }
+    }
 }]);
+
+// Filter by genre
+$(document).on("click", "#filters input[type=radio]", function (event) {
+    const target = $(event.target);
+    $.ajax({
+        url: "/discover",
+        type: "GET",
+        data: {
+            with_genres: target.data('genre')
+        },
+        beforeSend: function() {
+            $('#loader').show();
+        },
+        complete: function(){
+            $('#loader').hide();
+        },
+        success: function(response) {
+            if (response) {
+                $('#movie_list').html(response);
+            }
+        }
+    });
+});

@@ -8,16 +8,15 @@
 
         <div class="">
             <p class="title">
-            <h3 class="title d-inline">{{ movie.title }}</h3>
+            <h2 class="title">{{ movie.title }}</h2>
             <div class="rating d-inline">
                 {% set score = (movie.vote_average / 2)|round %}
                 {% for i in 1..5 %}
                     <span class="fa fa-star {{ loop.index < score ? 'checked' : '' }}"></span>
                 {% endfor %}
-                <span class="rate">{{ movie.vote_average }} pour {{ movie.vote_count}} utilisateur</span>
+                <span class="rate"><b>{{ movie.vote_average }}</b> pour {{ movie.vote_count}} utilisateur</span>
             </div>
             </p>
-            <p><span>{{ movie.release_date | slice(0,4)}}</span></p>
             <p class="description">{{ movie.overview }}</p>
         </div>
     </div>

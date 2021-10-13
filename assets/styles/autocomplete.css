@@ -33,3 +33,11 @@ div.search div.input-group {
     font-weight: bold;
     font-style: normal;
 }
+
+div.suggestion {
+    padding: 3px;
+}
+
+div.suggestion span {
+    padding-left: 25px;
+}

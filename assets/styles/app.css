@@ -17,7 +17,12 @@ li {
     list-style: none;
     margin-top: 20px;
 }
-
+#loader {
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    display: none;
+}
 /* List page */
 
 div.title h1 {
@@ -27,7 +32,19 @@ div.title h1 {
 
 div.banner {
     margin-top: 25px;
-    height: 400px;
+    height: auto;
+}
+
+div.banner div.resume {
+    position: absolute;
+    left: 50px;
+    bottom: 50px;
+    color: white;
+}
+div.banner div.desc {
+    position: relative;
+    left: 50px;
+    top: 185px;
 }
 
 div.banner img {
@@ -78,3 +95,17 @@ div.rating span.fa {
 div.rating span.checked {
     color: #007bff;
 }
+div.rating span.rate b {
+    background: black;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+div.detail-modal div.rating {
+    padding-left: 0;
+}
+div.detail-modal span.checked {
+    color: #e0a800;
+}
+
