@@ -16,13 +16,14 @@ class Movie
     private $defaultOptions;
     private $defaultResponse;
 
-    public function __construct(HttpClientInterface $client, LoggerInterface $logger)
+    public function __construct(HttpClientInterface $client, LoggerInterface $logger, string $apiUrl, string $apiKey)
     {
         $this->logger = $logger;
+
         $this->client = $client->withOptions([
-            'base_uri' => 'https://api.themoviedb.org/3/',
+            'base_uri' => $apiUrl,
             'headers' => [
-                'Authorization' => 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJmMjRiNGViYjcwYjAzMzJlY2RiM2Y3ZTUzOTE0YjlkYyIsInN1YiI6IjYxNjU3Yzc1NjJmY2QzMDAyYjRiMWIwNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dmRxBwmXWRNALxobA3mo3aa6D0p_pOGRlGpdjDKnXHY',
+                'Authorization' => "Bearer {$apiKey}",
                 'Content-Type' => 'application/json;charset=utf-8'
             ]
         ]);

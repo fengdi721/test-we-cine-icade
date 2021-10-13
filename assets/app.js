@@ -9,8 +9,8 @@
 import './styles/app.css';
 
 import $ from 'jquery';
-import 'bootstrap'; // adds functions to jQuery
-
+import 'bootstrap';
+import 'autocomplete.js/dist/autocomplete.jquery';
 
 $('#detailModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget);
@@ -24,3 +24,18 @@ $('#detailModal').on('show.bs.modal', function (event) {
         }
     });
 })
+
+$("#search").autocomplete({hint: false}, [{
+    source: function(query, cb) {
+        // $.ajax({
+        //     url: autocompleteUrl+'?query='+query
+        // }).then(function(data) {
+        //     if (dataKey) {
+        //         data = data[dataKey];
+        //     }
+        //     cb(data);
+        // });
+        console.log(query);
+    },
+    debounce: 500
+}]);

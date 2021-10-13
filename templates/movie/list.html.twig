@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ dump() }}
     <nav class="navbar offset-1 col-10">
         <div class="row col-12">
             <div class="col-4 title">
                 <h1 class="center">A propos de We Movies</h1>
             </div>
-            <div class="col-8">
-                <input type="text" class="float-right search" name="search" placeholder="search a movie here ..."/>
+            <div class="row search col-8">
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control" aria-label="Large" aria-describedby="inputGroup-sizing-sm" id="search" name="search" placeholder="Search a movie here ...">
+                </div>
             </div>
+
         </div>
     </nav>
 
@@ -40,11 +42,17 @@
                                 <img src="{{ config.images.secure_base_url ~ 'w185' ~ movie.poster_path}}" class="img-fluid rounded" alt="{{ movie.title }}" />
                             </div>
                             <div class="col-9">
-                                <p>
-                                    <h3 class="title">{{ movie.title }}</h3>
-                                    <span class="rate">{{ movie.release_date }}  ({{ movie.vote_count}} votes)</span>
+                                <p class="title">
+                                    <h3 class="title d-inline">{{ movie.title }}</h3>
+                                    <div class="rating d-inline">
+                                        {% set score = (movie.vote_average / 2)|round %}
+                                        {% for i in 1..5 %}
+                                            <span class="fa fa-star {{ loop.index < score ? 'checked' : '' }}"></span>
+                                        {% endfor %}
+                                        <span class="rate">({{ movie.vote_count}} votes)</span>
+                                    </div>
                                 </p>
-
+                                <p><span>{{ movie.release_date | slice(0,4)}}</span></p>
                                 <p class="description">{{ movie.overview }}</p>
                                 <a href="#" class="btn btn-primary btn-lg float-md-right" role="button" data-toggle="modal" data-target="#detailModal" data-id="{{ movie.id }}" aria-pressed="true">Lire le details</a>
                             </div>

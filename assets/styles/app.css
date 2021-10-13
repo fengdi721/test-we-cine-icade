@@ -1,4 +1,6 @@
 @import '~bootstrap';
+@import '~font-awesome';
+@import './autocomplete.css';
 
 body {
     position: relative;
@@ -17,10 +19,6 @@ li {
 }
 
 /* List page */
-input.search {
-    width: 40%;
-    height: 100%;
-}
 
 div.title h1 {
     text-decoration: underline;
@@ -28,6 +26,7 @@ div.title h1 {
 }
 
 div.banner {
+    margin-top: 25px;
     height: 400px;
 }
 
@@ -69,3 +68,13 @@ div.detail-modal {
     height: auto;
 }
 
+div.rating {
+    padding-left: 25px;
+}
+
+div.rating span.fa {
+    color: grey;
+}
+div.rating span.checked {
+    color: #007bff;
+}
