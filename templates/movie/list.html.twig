@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {{ dump() }}
     <nav class="navbar offset-1 col-10">
         <div class="row col-12">
             <div class="col-4 title">
@@ -20,30 +21,14 @@
     <div class="content offset-1 col-10 row">
         <div class="col-3" id="filters">
             <ul>
-                <li>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" name="type[]" id="Comedie">
-                        <label class="form-check-label" for="Comedie">Comedie</label>
-                    </div>
-                </li>
-                <li>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" name="type[]">
-                        <label class="form-check-label">Aventure</label>
-                    </div>
-                </li>
-                <li>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" name="type[]">
-                        <label class="form-check-label">Fantastique</label>
-                    </div>
-                </li>
-                <li>
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" name="type[]">
-                        <label class="form-check-label">Animation</label>
-                    </div>
-                </li>
+                {% for genre in genres %}
+                    <li>
+                        <div class="custom-control form-control-lg custom-checkbox">
+                            <input class="form-check-input" type="checkbox" value="{{ genre.id }}" name="genre[]" id="genre-{{ genre.id }}">
+                            <label class="form-check-label" for="genre-{{ genre.id }}">{{ genre.name }}</label>
+                        </div>
+                    </li>
+                {% endfor %}
             </ul>
         </div>
         <div class="col-9" id="movie_list">
@@ -78,9 +63,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-                <div class="modal-body">
-
-                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer"></div>
             </div>
         </div>
     </div>

@@ -60,6 +60,10 @@ div.detail a {
     border-radius: 25px;
 }
 
+div.detail-modal {
+    padding: 25px;
+}
+
 #detailModal .modal-dialog {
     max-width: 50%;
     height: auto;

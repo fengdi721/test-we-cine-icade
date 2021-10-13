@@ -1,13 +1,23 @@
-<div class="row detail-modal">
-    <div class="text-center">
-        <img src="{{ config.images.secure_base_url ~ 'w500' ~ movie.poster_path}}" class="img-fluid rounded" alt="{{ movie.title }}" />
-    </div>
+{% if movie.error is not defined %}
+    <div class="detail-modal">
+        {% set video = movie.videos.results|first %}
 
-    <div class="col-9">
-        <p>
-            <h3 class="title">{{ movie.title }}</h3>
-            <span class="rate">{{ movie.release_date }}  ({{ movie.vote_count}} votes)</span>
-        </p>
-        <p class="description">{{ movie.overview }}</p>
+        <div class="embed-responsive embed-responsive-16by9 video">
+            <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video.key|default('notexist') }}" allowfullscreen></iframe>
+        </div>
+
+        <div class="">
+            <p>
+                <h3 class="title">{{ movie.title }}</h3>
+                <span class="rate">{{ movie.release_date }}  ({{ movie.vote_count}} votes)</span>
+            </p>
+            <p class="description">{{ movie.overview }}</p>
+        </div>
     </div>
-</div>
+{% else %}
+    <div class="detail-modal">
+        <div class="text-center">
+            <h4>Error while getting movie information !</h4>
+        </div>
+    </div>
+{% endif %}
