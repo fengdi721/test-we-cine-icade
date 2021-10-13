@@ -1,27 +1,87 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="row">
-        <h1>A propos de We Movies</h1>
-        <input type="text" name="search" />
+    <nav class="navbar offset-1 col-10">
+        <div class="row col-12">
+            <div class="col-4 title">
+                <h1 class="center">A propos de We Movies</h1>
+            </div>
+            <div class="col-8">
+                <input type="text" class="float-right search" name="search" placeholder="search a movie here ..."/>
+            </div>
+        </div>
+    </nav>
+
+    <div class="row offset-1 col-10 banner">
+        {% set firstMovie = movies|first %}
+        <img src="{{ config.images.secure_base_url ~ 'w500' ~ firstMovie.poster_path}}" class="img-fluid rounded" alt="{{ firstMovie.title }}" />
     </div>
 
-    <div class="row" id="movie_list">
-        <ul>
-            {% for movie in movies %}
+    <div class="content offset-1 col-10 row">
+        <div class="col-3" id="filters">
+            <ul>
                 <li>
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="{{ config.images.secure_base_url ~ 'original' ~ movie.poster_path}}" class="img-fluid rounded" alt="{{ movie.title }}" />
-                        </div>
-                        <div class="col-8">
-                            <h3 class="title">{{ movie.title }}</h3>
-                            <p class="description">{{ movie.overview }}</p>
-                            <a class="button">Lire le details</a>
-                        </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" name="type[]" id="Comedie">
+                        <label class="form-check-label" for="Comedie">Comedie</label>
                     </div>
                 </li>
-            {% endfor %}
-        </ul>
+                <li>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" name="type[]">
+                        <label class="form-check-label">Aventure</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" name="type[]">
+                        <label class="form-check-label">Fantastique</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" name="type[]">
+                        <label class="form-check-label">Animation</label>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-9" id="movie_list">
+            <ul>
+                {% for movie in movies[1:] %}
+                    <li>
+                        <div class="row detail">
+                            <div class="col-3">
+                                <img src="{{ config.images.secure_base_url ~ 'w185' ~ movie.poster_path}}" class="img-fluid rounded" alt="{{ movie.title }}" />
+                            </div>
+                            <div class="col-9">
+                                <p>
+                                    <h3 class="title">{{ movie.title }}</h3>
+                                    <span class="rate">{{ movie.release_date }}  ({{ movie.vote_count}} votes)</span>
+                                </p>
+
+                                <p class="description">{{ movie.overview }}</p>
+                                <a href="#" class="btn btn-primary btn-lg float-md-right" role="button" data-toggle="modal" data-target="#detailModal" data-id="{{ movie.id }}" aria-pressed="true">Lire le details</a>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

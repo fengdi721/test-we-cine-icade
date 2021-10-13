@@ -1,5 +1,67 @@
 @import '~bootstrap';
 
 body {
-    background-color: lightgray;
+    position: relative;
+    min-height: 45rem;
+    padding-bottom: 80px;
+    padding-top: 80px;
 }
+
+div.row {
+    padding: 5px;
+}
+
+li {
+    list-style: none;
+    margin-top: 20px;
+}
+
+/* List page */
+input.search {
+    width: 40%;
+    height: 100%;
+}
+
+div.title h1 {
+    text-decoration: underline;
+    text-underline-position: under;
+}
+
+div.banner {
+    height: 400px;
+}
+
+div.banner img {
+    position: center;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#filters {
+    padding: 20px;
+    margin-top: 50px;
+}
+
+#filters ul {
+    border: solid grey;
+    padding-bottom: 50px;
+}
+
+#movie_list {
+    margin-top: 50px;
+}
+
+#movie_list li {
+    background: #eae8e8;
+    padding: 15px;
+}
+
+div.detail a {
+    border-radius: 25px;
+}
+
+#detailModal .modal-dialog {
+    max-width: 50%;
+    height: auto;
+}
+
