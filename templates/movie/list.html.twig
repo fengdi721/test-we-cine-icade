@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="row">
+        <h1>A propos de We Movies</h1>
+        <input type="text" name="search" />
+    </div>
+
+    <div class="row" id="movie_list">
+        <ul>
+            {% for movie in movies %}
+                <li>
+                    <div class="row">
+                        <div class="col-4">
+                            <img src="{{ config.images.secure_base_url ~ 'original' ~ movie.poster_path}}" class="img-fluid rounded" alt="{{ movie.title }}" />
+                        </div>
+                        <div class="col-8">
+                            <h3 class="title">{{ movie.title }}</h3>
+                            <p class="description">{{ movie.overview }}</p>
+                            <a class="button">Lire le details</a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
