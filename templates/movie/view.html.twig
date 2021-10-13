@@ -1,0 +1,13 @@
+<div class="row detail-modal">
+    <div class="text-center">
+        <img src="{{ config.images.secure_base_url ~ 'w500' ~ movie.poster_path}}" class="img-fluid rounded" alt="{{ movie.title }}" />
+    </div>
+
+    <div class="col-9">
+        <p>
+            <h3 class="title">{{ movie.title }}</h3>
+            <span class="rate">{{ movie.release_date }}  ({{ movie.vote_count}} votes)</span>
+        </p>
+        <p class="description">{{ movie.overview }}</p>
+    </div>
+</div>

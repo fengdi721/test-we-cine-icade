@@ -15,8 +15,12 @@ import 'bootstrap'; // adds functions to jQuery
 $('#detailModal').on('show.bs.modal', function (event) {
     const button = $(event.relatedTarget);
     const idMovie = button.data('id');
-
-
     let modal = $(this);
-    modal.find('.modal-body').html(idMovie);
+
+    $.ajax({
+        url: `/view/${idMovie}`,
+        success: function (html) {
+            modal.find('.modal-body').html(html);
+        }
+    });
 })
